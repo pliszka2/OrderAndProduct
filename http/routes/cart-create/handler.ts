@@ -2,11 +2,11 @@ import fastify from 'fastify'
 import * as http from 'http'
 import { Ecommerce } from '../../../src/main/Ecommerce'
 
-export const handler = (
+export const handler = async (
   _req: fastify.FastifyRequest<http.IncomingMessage>,
   reply: fastify.FastifyReply<http.ServerResponse>,
 ) => {
-  Ecommerce.createCart()
+  const result = await Ecommerce.createCart()
 
-  reply.send()
+  reply.send(result)
 }

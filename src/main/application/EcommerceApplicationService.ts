@@ -20,15 +20,15 @@ export class EcommerceApplicationService {
     private productRepository: AbstractRepositoryInterface<Product>,
   ) {}
 
-  public createCart() {
+  public async createCart() {
     const cart = new Cart({
       id: uuid.v1(),
       items: [],
     })
 
-    console.log(cart)
+    await this.cartRepository.save(cart)
 
-    this.cartRepository.save(cart)
+    return cart.id
   }
 
   public async addItemToCart(data: AddItemToCartDTO) {
