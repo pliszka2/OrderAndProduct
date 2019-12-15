@@ -1,0 +1,30 @@
+{
+  "name": "nc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.12.17",
+    "@types/uuid": "^3.4.6",
+    "dotenv": "^8.2.0",
+    "fastify": "^2.11.0",
+    "jest": "^24.9.0",
+    "nodemon": "^1.19.1",
+    "prettier": "^1.19.1",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.3.0",
+    "tsconfig-paths": "^3.8.0",
+    "typescript": "^3.5.3",
+    "uuid": "^3.3.3"
+  },
+  "scripts": {
+    "typecheck": "tsc --project tsconfig.json --noEmit --pretty false | grep -v node_modules || true",
+    "lint": "tslint -p tsconfig.json -c tslint.json",
+    "test": "NODE_ENV=test jest --config jest.json",
+    "test:watch": "yarn test --watch",
+    "start": "ts-node -r tsconfig-paths/register --project ./tsconfig.json ./http/server.ts",
+    "prettify:src": "yarn prettier './src/**/*.ts' --write --loglevel silent",
+    "prettify:http": "yarn prettier './http/**/*.ts' --write --loglevel silent"
+  }
+}
