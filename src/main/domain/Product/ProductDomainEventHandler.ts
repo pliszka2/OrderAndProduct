@@ -1,18 +1,13 @@
 import { DomainEvent, DomainEventType } from '../../common/DomainEvent'
 import { Observer } from '../../common/ObserverInterface'
-import {
-  AbstractRepositoryInterface,
-  InMemoryRepository,
-} from 'src/main/common/InMemoryRepository'
+import { AbstractRepositoryInterface } from 'src/main/common/InMemoryRepository'
 import { Product } from './Product'
 import { ItemAddedEvent } from '../Events/ItemAdded'
 import { Exceptions } from '../Exceptions'
 
 export class ProductDomainEventHandler implements Observer {
   constructor(
-    private productRepository: AbstractRepositoryInterface<
-      Product
-    > = new InMemoryRepository<Product>(),
+    private productRepository: AbstractRepositoryInterface<Product>,
   ) {}
 
   async handleDomainEvent(event: DomainEvent) {

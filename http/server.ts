@@ -10,7 +10,7 @@ for (const route of routes) {
 
 server.listen(C.NODE_PORT as string, (err: any, address: any) => {
   if (err) {
-    console.log(err)
+    server.log.error(`Fastify error ${err}`)
     throw err
   }
   server.log.info(`server listening on ${address}`)

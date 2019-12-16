@@ -3,15 +3,15 @@ import { HttpMethods } from 'http/config/http-methods'
 import { HTTP } from 'http/config/http-codes'
 import { validation } from './validation'
 
-export const cartAddProduct = {
-  method: HttpMethods.POST,
+export const getCart = {
+  method: HttpMethods.GET,
   url: '/cart/:cartId',
   querystring: {
     cartId: { type: 'string' },
   },
   schema: {
     response: {
-      [`${HTTP.CREATED}`]: {
+      [`${HTTP.OK}`]: {
         type: 'object',
       },
     },

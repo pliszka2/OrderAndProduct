@@ -1,9 +1,10 @@
 import { Entity } from './Entity'
 
 export interface AbstractRepositoryInterface<T> {
-  save(cart: T): Promise<void>
-  get(cartId: string): Promise<T | undefined>
-  delete(cart: T): Promise<void>
+  save(record: T): Promise<void>
+  get(recordId: string): Promise<T | undefined>
+  delete(record: T): Promise<void>
+  getAll(): Promise<Array<T>>
 }
 
 export class InMemoryRepository<T extends Entity> {
@@ -36,5 +37,9 @@ export class InMemoryRepository<T extends Entity> {
     this.items = this.items.filter(item => item.id !== itemToRemove.id)
 
     return Promise.resolve()
+  }
+
+  public getAll() {
+    return Promise.resolve(this.items)
   }
 }
