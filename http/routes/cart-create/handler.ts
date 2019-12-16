@@ -6,7 +6,7 @@ export const handler = async (
   _req: fastify.FastifyRequest<http.IncomingMessage>,
   reply: fastify.FastifyReply<http.ServerResponse>,
 ) => {
-  const result = await Ecommerce.createCart()
+  const result = await Ecommerce.CreateCartHandler.execute()
 
   reply.send(result)
 }

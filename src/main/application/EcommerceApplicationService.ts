@@ -1,4 +1,3 @@
-import { ExchangeRatesCheckerInterface } from '../common/CurrencyCheckerInterface'
 import { EventPublisherInterface } from '../common/EventPublisher'
 import { Exceptions } from '../domain/Exceptions'
 import { AbstractRepositoryInterface } from 'src/main/common/InMemoryRepository'
@@ -12,53 +11,52 @@ type AddItemToCartDTO = {
   cartId: string
 }
 
-export class EcommerceApplicationService {
-  constructor(
-    private eventPublisher: EventPublisherInterface,
-    private cartRepository: AbstractRepositoryInterface<Cart>,
-    private ratesChecker: ExchangeRatesCheckerInterface,
-    private productRepository: AbstractRepositoryInterface<Product>,
-  ) {}
+export namespace EcommerceApplicationService {
+  export class CreateCardCommandHandler {
+    constructor(private cartRepository: AbstractRepositoryInterface<Cart>) {}
 
-  public async createCart() {
-    const cart = new Cart({
-      id: uuid.v1(),
-      items: [],
-    })
+    public async execute() {
+      const cart = new Cart({
+        id: uuid.v1(),
+        items: [],
+      })
 
-    await this.cartRepository.save(cart)
+      await this.cartRepository.save(cart)
 
-    return cart.id
+      return cart.id
+    }
   }
 
-  public async addItemToCart(data: AddItemToCartDTO) {
-    const cart = await this.cartRepository.get(data.cartId)
+  export class AddItemToCartCommandHandler {
+    constructor(
+      private eventPublisher: EventPublisherInterface,
+      private cartRepository: AbstractRepositoryInterface<Cart>,
+      private productRepository: AbstractRepositoryInterface<Product>,
+    ) {}
 
-    if (!cart) {
-      throw new Exceptions.CartNotFound()
+    public async execute(data: AddItemToCartDTO) {
+      const cart = await this.cartRepository.get(data.cartId)
+
+      if (!cart) {
+        throw new Exceptions.CartNotFound()
+      }
+
+      const item = await this.productRepository.get(data.productId)
+
+      if (!item) {
+        throw new Exceptions.ItemNotFound()
+      }
+
+      const events = cart.addItem({
+        itemId: data.productId,
+        amount: data.amount,
+        price: item.price,
+        name: item.name,
+      })
+
+      await this.cartRepository.save(cart)
+
+      this.eventPublisher.publish(events)
     }
-
-    const item = await this.productRepository.get(data.productId)
-
-    if (!item) {
-      throw new Exceptions.ItemNotFound()
-    }
-
-    const events = cart.addItem({
-      itemId: data.productId,
-      amount: data.amount,
-      price: item.price,
-      name: item.name,
-    })
-
-    await this.cartRepository.save(cart)
-
-    this.eventPublisher.publish(events)
-  }
-
-  public async calculateTotalPrice() {
-    const rates = await this.ratesChecker.getLatest()
-
-    return rates
   }
 }
