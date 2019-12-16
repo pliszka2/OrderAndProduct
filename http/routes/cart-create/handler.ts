@@ -8,7 +8,7 @@ export const handler = async (
   _req: fastify.FastifyRequest<http.IncomingMessage>,
   reply: fastify.FastifyReply<http.ServerResponse>,
 ) => {
-  const result = await new Ecommerce.CreateCartHandler(
+  const result = await new Ecommerce.CreateCartCommandHandler(
     new InMemoryRepository<Cart>(),
   ).execute()
 
