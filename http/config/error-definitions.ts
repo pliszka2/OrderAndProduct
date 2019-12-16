@@ -13,4 +13,12 @@ export const ErrorDefinitions = {
     statusCode: HTTP.NOT_FOUND,
     message: 'Product not found.',
   },
+  ItemNotInCart: {
+    statusCode: HTTP.BAD_REQUEST,
+    message: 'Item not found in the cart',
+  },
+  ItemNotInStock: {
+    statusCode: HTTP.BAD_REQUEST,
+    message: 'Item not in stock',
+  },
 }

@@ -1,4 +1,4 @@
-import { Product } from '../src/main/domain/Product/Product'
+import { Product } from "src/main/Ecommerce/domain/Product/Product"
 
 export const sampleListOfProducts = [
   new Product({
