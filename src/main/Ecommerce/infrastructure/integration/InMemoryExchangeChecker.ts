@@ -1,4 +1,4 @@
-import { ExchangeRatesCheckerInterface } from '../../common/CurrencyCheckerInterface'
+import { ExchangeRatesCheckerInterface, Rate } from '../../common/CurrencyCheckerInterface'
 
 export class InMemoryExchangeRateChecker
   implements ExchangeRatesCheckerInterface {
@@ -37,8 +37,9 @@ export class InMemoryExchangeRateChecker
         GBP: 0.83508,
         KRW: 1308.97,
         MYR: 4.6199,
+        EUR: 1,
       },
-      base: 'EUR',
+      base: Rate.EUR,
       date: '2019-12-13',
     })
   }

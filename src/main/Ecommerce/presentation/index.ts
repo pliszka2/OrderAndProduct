@@ -5,6 +5,7 @@ import { ProductDomainEventHandler } from '../domain/Product/DomainEventHandler'
 import { EventPublisher } from '../common/EventPublisher'
 import { Cart } from '../domain/Cart/Cart'
 import { EcommerceApplicationService } from '../application/EcommerceApplicationService'
+import { InMemoryExchangeRateChecker } from '../infrastructure/integration/InMemoryExchangeChecker'
 
 const productRepository = new InMemoryRepository<Product>(sampleListOfProducts)
 const productDomainEventHandler = new ProductDomainEventHandler(
@@ -12,6 +13,7 @@ const productDomainEventHandler = new ProductDomainEventHandler(
 )
 const eventPublisher = new EventPublisher([productDomainEventHandler])
 const cartRepository = new InMemoryRepository<Cart>()
+const exchangeRatesChecker = new InMemoryExchangeRateChecker()
 
 // this is a temporary solution. The object has to be constructed in http because it consumes it
 
@@ -29,7 +31,10 @@ export const Ecommerce = {
     cartRepository,
   ),
   Query: {
-    Cart: new EcommerceApplicationService.Query.CartViewModel(cartRepository),
+    Cart: new EcommerceApplicationService.Query.CartViewModel(
+      cartRepository,
+      exchangeRatesChecker,
+    ),
     Product: new EcommerceApplicationService.Query.ProductViewModel(
       productRepository,
     ),

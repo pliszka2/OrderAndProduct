@@ -1,9 +1,13 @@
 import { AbstractRepositoryInterface } from '../../infrastructure/persistence/InMemoryRepository'
 import { Cart } from '../../domain/Cart/Cart'
 import { Exceptions } from '../../domain/Exceptions'
+import { ExchangeRatesCheckerInterface } from '../../common/CurrencyCheckerInterface'
 
 export class CartViewModel {
-  constructor(private cartRepository: AbstractRepositoryInterface<Cart>) {}
+  constructor(
+    private cartRepository: AbstractRepositoryInterface<Cart>,
+    private exchangeRatesChecker: ExchangeRatesCheckerInterface,
+  ) {}
 
   async getById(cartId: string) {
     const cart = await this.cartRepository.get(cartId)
@@ -11,6 +15,10 @@ export class CartViewModel {
     if (!cart) {
       throw new Exceptions.CartNotFound()
     }
+
+    const rates = await this.exchangeRatesChecker.getLatest()
+
+    cart.calculateTotal(rates)
 
     return cart.serialize()
   }

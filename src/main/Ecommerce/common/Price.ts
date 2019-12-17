@@ -1,4 +1,6 @@
+import { Rate } from "./CurrencyCheckerInterface";
+
 export type Price = {
   amount: number
-  currency: string
+  currency: Rate
 }

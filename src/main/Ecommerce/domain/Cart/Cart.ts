@@ -1,7 +1,6 @@
 import { tail } from 'lodash'
-
 import { DomainEvent } from '../../common/DomainEvent'
-import { ExchangeRates } from '../../common/CurrencyCheckerInterface'
+import { ExchangeRates, Rate } from '../../common/CurrencyCheckerInterface'
 import { Price } from '../../common/Price'
 import { ItemAddedEvent } from '../Events/ItemAdded'
 import { Entity } from '../../common/Entity'
@@ -11,6 +10,11 @@ import { ItemRemovedEvent } from '../Events/ItemRemoved'
 export interface CartRecord {
   id: string
   items: CartItemValueObject[]
+}
+
+type TotalPrice = {
+  base: Rate,
+  amount: number
 }
 
 class CartItemValueObject {
@@ -31,6 +35,7 @@ interface AddItemDTO {
 export class Cart extends Entity {
   public items: CartItemValueObject[]
   private domainEvents: DomainEvent[]
+  private total: TotalPrice | undefined
 
   constructor(cartRecord: CartRecord) {
     super(cartRecord.id)
@@ -83,8 +88,16 @@ export class Cart extends Entity {
     )
   }
 
-  public calculateTotal(_currentRates: ExchangeRates) {
-    throw new Error('Not implemented')
+  public calculateTotal(rates: ExchangeRates) {
+    const amountInBase = this.items.reduce((acc, curr) => {
+      return (acc =
+        acc + curr.price.amount * this.findExchangeRate(curr, rates))
+    }, 0)
+
+    this.total = {
+      base: rates.base,
+      amount: amountInBase
+    }
   }
 
   public getEvents() {
@@ -99,6 +112,7 @@ export class Cart extends Entity {
     return {
       id: this.id,
       items: this.items,
+      total: this.total,
     }
   }
 
@@ -106,5 +120,12 @@ export class Cart extends Entity {
     for (let i = 0; i < amount; i++) {
       this.items = [...this.items, item]
     }
+  }
+
+  private findExchangeRate(
+    item: CartItemValueObject,
+    exchangeRates: ExchangeRates,
+  ) {
+    return exchangeRates.rates[item.price.currency]
   }
 }
