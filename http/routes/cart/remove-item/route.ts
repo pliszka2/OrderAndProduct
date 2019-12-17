@@ -1,14 +1,11 @@
 import { handler } from './handler'
 import { HttpMethods } from 'http/config/http-methods'
 import { validateWith } from 'http/utils/validate'
-import { schema } from './schema'
+import { schema } from '../get/schema'
 
-export const cartAddItem = {
-  method: HttpMethods.PUT,
+export const cartRemoveItem = {
+  method: HttpMethods.DELETE,
   url: '/cart/:cartId',
-  querystring: {
-    cartId: { type: 'string' },
-  },
   preHandler: validateWith(schema),
   handler,
 }

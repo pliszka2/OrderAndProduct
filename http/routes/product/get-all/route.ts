@@ -5,6 +5,6 @@ import { validation } from './validation'
 export const getProducts = {
   method: HttpMethods.GET,
   url: '/product',
-  beforeHandler: validation,
+  preHandler: validation,
   handler,
 }

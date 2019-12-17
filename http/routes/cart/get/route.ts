@@ -1,6 +1,7 @@
 import { handler } from './handler'
 import { HttpMethods } from 'http/config/http-methods'
-import { validation } from './validation'
+import { validateWith } from 'http/utils/validate'
+import { schema } from './schema'
 
 export const getCart = {
   method: HttpMethods.GET,
@@ -8,6 +9,6 @@ export const getCart = {
   querystring: {
     cartId: { type: 'string' },
   },
-  beforeHandler: validation,
+  preHandler: validateWith(schema),
   handler,
 }
