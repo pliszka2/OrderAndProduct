@@ -5,6 +5,6 @@ export const schema = {
     cartId: Joi.string().required(),
   }),
   body: Joi.object({
-    productId: Joi.string().required(),
+    itemId: Joi.string().required(),
   }),
 }

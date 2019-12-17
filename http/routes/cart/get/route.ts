@@ -6,9 +6,6 @@ import { schema } from './schema'
 export const getCart = {
   method: HttpMethods.GET,
   url: '/cart/:cartId',
-  querystring: {
-    cartId: { type: 'string' },
-  },
   preHandler: validateWith(schema),
   handler,
 }

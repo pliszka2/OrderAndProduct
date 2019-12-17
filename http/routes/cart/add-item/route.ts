@@ -6,9 +6,6 @@ import { schema } from './schema'
 export const cartAddItem = {
   method: HttpMethods.PUT,
   url: '/cart/:cartId',
-  querystring: {
-    cartId: { type: 'string' },
-  },
   preHandler: validateWith(schema),
   handler,
 }
