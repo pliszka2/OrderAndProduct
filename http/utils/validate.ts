@@ -1,6 +1,6 @@
 import * as _ from 'lodash'
 import * as Joi from 'joi'
-import { ValidationError } from 'http/error-handling/ValidationError'
+import { ValidationError } from 'http/utils/ValidationError'
 import fastify from 'fastify'
 import * as http from 'http'
 
