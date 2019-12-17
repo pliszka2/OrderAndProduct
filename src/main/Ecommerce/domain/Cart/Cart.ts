@@ -51,7 +51,6 @@ export class Cart extends Entity {
       new ItemAddedEvent({
         productId: addItem.productId,
         cartId: this.id,
-        amount: addItem.amount,
         price: addItem.price,
       }),
     )

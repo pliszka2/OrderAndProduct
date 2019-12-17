@@ -27,7 +27,7 @@ export class AddItemToCartCommandHandler {
     const product = await this.productRepository.get(data.productId)
 
     if (!product) {
-      throw new Exceptions.ItemNotFound()
+      throw new Exceptions.ProductNotFound()
     }
 
     if (!product.isInStock()) {
@@ -37,7 +37,6 @@ export class AddItemToCartCommandHandler {
     if (product.availability < data.amount) {
       throw new Exceptions.ProductAvailabilityExceeded()
     }
-
 
     cart.addItem({
       productId: product.id,

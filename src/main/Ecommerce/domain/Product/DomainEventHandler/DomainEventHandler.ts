@@ -1,10 +1,10 @@
-import { DomainEvent, DomainEventType } from '../../common/DomainEvent'
-import { Observer } from '../../common/ObserverInterface'
-import { Product } from './Product'
-import { ItemAddedEvent } from '../Events/ItemAdded'
-import { Exceptions } from '../Exceptions'
-import { ItemRemovedEvent } from '../Events/ItemRemoved'
-import { AbstractRepositoryInterface } from '../../infrastructure/persistence/InMemoryRepository'
+import { DomainEvent, DomainEventType } from '../../../common/DomainEvent'
+import { Observer } from '../../../common/ObserverInterface'
+import { Product } from '../Product'
+import { ItemAddedEvent } from '../../Events/ItemAdded'
+import { Exceptions } from '../../Exceptions'
+import { ItemRemovedEvent } from '../../Events/ItemRemoved'
+import { AbstractRepositoryInterface } from '../../../infrastructure/persistence/InMemoryRepository'
 
 export class ProductDomainEventHandler implements Observer {
   constructor(
@@ -23,7 +23,7 @@ export class ProductDomainEventHandler implements Observer {
   }
 
   private async handleItemAddedEvent(event: ItemAddedEvent) {
-    const product = await this.productRepository.get(event.itemId)
+    const product = await this.productRepository.get(event.productId)
 
     if (!product) {
       throw new Exceptions.ProductNotFound()

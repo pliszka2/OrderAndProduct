@@ -1,7 +1,7 @@
 import { sampleListOfProducts } from 'assets/sample-data'
 import { InMemoryRepository } from '../infrastructure/persistence/InMemoryRepository'
 import { Product } from '../domain/Product/Product'
-import { ProductDomainEventHandler } from '../domain/Product/DomainEventHandler'
+import { ProductDomainEventHandler } from '../domain/Product/DomainEventHandler/DomainEventHandler'
 import { EventPublisher } from '../common/EventPublisher'
 import { Cart } from '../domain/Cart/Cart'
 import { EcommerceApplicationService } from '../application/EcommerceApplicationService'
