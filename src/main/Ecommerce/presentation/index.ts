@@ -30,6 +30,10 @@ export const Ecommerce = {
   CreateCart: new EcommerceApplicationService.Command.CreateCartCommandHandler(
     cartRepository,
   ),
+  UpdateProduct: new EcommerceApplicationService.Command.UpdateProductCommandHandler(
+    eventPublisher,
+    productRepository,
+  ),
   Query: {
     Cart: new EcommerceApplicationService.Query.CartViewModel(
       cartRepository,

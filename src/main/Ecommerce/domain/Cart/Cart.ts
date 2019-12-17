@@ -1,5 +1,4 @@
 import { tail } from 'lodash'
-import { DomainEvent } from '../../common/DomainEvent'
 import { ExchangeRates, Rate } from '../../common/CurrencyCheckerInterface'
 import { Price } from '../../common/Price'
 import { ItemAddedEvent } from '../Events/ItemAdded'
@@ -13,7 +12,7 @@ export interface CartRecord {
 }
 
 type TotalPrice = {
-  base: Rate,
+  base: Rate
   amount: number
 }
 
@@ -25,7 +24,7 @@ class CartItemValueObject {
   ) {}
 }
 
-interface AddItemDTO {
+interface AddItem {
   productId: string
   price: Price
   amount: number
@@ -34,17 +33,15 @@ interface AddItemDTO {
 
 export class Cart extends Entity {
   public items: CartItemValueObject[]
-  private domainEvents: DomainEvent[]
   private total: TotalPrice | undefined
 
   constructor(cartRecord: CartRecord) {
     super(cartRecord.id)
 
     this.items = cartRecord.items
-    this.domainEvents = []
   }
 
-  public addItem(addItem: AddItemDTO) {
+  public addItem(addItem: AddItem) {
     this.pushToItems(
       addItem.amount,
       new CartItemValueObject(addItem.productId, addItem.price, addItem.name),
@@ -96,16 +93,8 @@ export class Cart extends Entity {
 
     this.total = {
       base: rates.base,
-      amount: amountInBase
+      amount: amountInBase,
     }
-  }
-
-  public getEvents() {
-    return this.domainEvents
-  }
-
-  public flushEvents() {
-    this.domainEvents = []
   }
 
   public serialize() {

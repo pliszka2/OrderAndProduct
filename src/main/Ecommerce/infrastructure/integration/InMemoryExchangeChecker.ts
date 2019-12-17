@@ -1,4 +1,7 @@
-import { ExchangeRatesCheckerInterface, Rate } from '../../common/CurrencyCheckerInterface'
+import {
+  ExchangeRatesCheckerInterface,
+  Rate,
+} from '../../common/CurrencyCheckerInterface'
 
 export class InMemoryExchangeRateChecker
   implements ExchangeRatesCheckerInterface {

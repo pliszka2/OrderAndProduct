@@ -4,6 +4,7 @@ import { cartAddItem } from './cart/add-item/route'
 import { getCart } from './cart/get/route'
 import { cartRemoveItem } from './cart/remove-item/route'
 import { getProducts } from './product/get-all/route'
+import { updateProduct } from './product/update/route'
 
 export const routes = [
   cartAddItem,
@@ -12,4 +13,5 @@ export const routes = [
   getCart,
   getProducts,
   healthCheck,
+  updateProduct,
 ]

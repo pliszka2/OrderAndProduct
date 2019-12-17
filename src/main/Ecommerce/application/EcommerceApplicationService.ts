@@ -4,12 +4,14 @@ import { RemoveItemFromCartCommandHandler } from './command/Cart/RemoveItem/Remo
 
 import { CartViewModel } from './query/Cart'
 import { ProductViewModel } from './query/Product'
+import { UpdateProductCommandHandler } from './command/Product/Update/Update'
 
 export namespace EcommerceApplicationService {
   export const Command = {
     CreateCartCommandHandler,
     AddItemToCartCommandHandler,
     RemoveItemFromCartCommandHandler,
+    UpdateProductCommandHandler,
   }
   export const Query = {
     CartViewModel,

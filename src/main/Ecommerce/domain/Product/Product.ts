@@ -1,4 +1,10 @@
 import { Price } from '../../common/Price'
+import { Entity } from '../../common/Entity'
+
+type UpdateProduct = {
+  price: Price
+  name: string
+}
 
 export interface ProductRecord {
   id: string
@@ -8,15 +14,15 @@ export interface ProductRecord {
   quantity: number
 }
 
-export class Product {
-  public id: string
+export class Product extends Entity {
   public price: Price
   public name: string
   private inStock: boolean
   private quantity: number
 
   constructor(productRecord: ProductRecord) {
-    this.id = productRecord.id
+    super(productRecord.id)
+
     this.price = productRecord.price
     this.name = productRecord.name
     this.inStock = productRecord.inStock
@@ -37,6 +43,11 @@ export class Product {
     if (this.quantity > 0) {
       this.inStock = true
     }
+  }
+
+  public update(updateData: UpdateProduct) {
+    this.name = updateData.name
+    this.price = updateData.price
   }
 
   public isInStock() {

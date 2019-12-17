@@ -1,6 +1,7 @@
 import * as uuid from 'uuid'
 import { Cart } from './Cart'
 import { ItemAddedEvent } from '../Events/ItemAdded'
+import { Rate } from '../../common/CurrencyCheckerInterface'
 
 describe('Cart tests', () => {
   it('Should add an item', () => {
@@ -15,7 +16,7 @@ describe('Cart tests', () => {
       name: 'Fancy name',
       price: {
         amount: 1,
-        currency: 'EUR',
+        currency: Rate.EUR,
       },
     })
 
