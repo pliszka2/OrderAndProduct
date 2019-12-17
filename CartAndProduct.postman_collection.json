@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "8d803ccf-3a33-4ca5-b8e5-19b3bb8f6332",
+		"name": "CartAndProduct",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST cart",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3009/cart",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3009",
+					"path": [
+						"cart"
+					]
+				},
+				"description": "Creates a new cart"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE item from cart",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"productId\": \"6da4495e-802a-4273-8bf9-f211bc1f863d\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3009/cart/{{cartId}}",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3009",
+					"path": [
+						"cart",
+						"{{cartId}}"
+					]
+				},
+				"description": "Removes item from Cart by productId\n\nhttp://127.0.0.1:3009/cart/e0452220-210d-11ea-b2d3-8d1c4ce7f0b8"
+			},
+			"response": []
+		},
+		{
+			"name": "PUT cart",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"productId\": \"6da4495e-802a-4273-8bf9-f211bc1f863d\",\n\t\"amount\": 3\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3009/cart/{{cartId}}",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3009",
+					"path": [
+						"cart",
+						"{{cartId}}"
+					]
+				},
+				"description": "Add items to cart by id\n\nhttp://127.0.0.1:3009/cart/6aefa350-210e-11ea-af29-11e5ea2b855b"
+			},
+			"response": []
+		},
+		{
+			"name": "GET products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3009/product",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3009",
+					"path": [
+						"product"
+					]
+				},
+				"description": "Returns all products"
+			},
+			"response": []
+		},
+		{
+			"name": "GET cart",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3009/cart/{{cartId}}",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3009",
+					"path": [
+						"cart",
+						"{{cartId}}"
+					]
+				},
+				"description": "Returns cart by id\n\nhttp://127.0.0.1:3009/cart/:cartId"
+			},
+			"response": []
+		},
+		{
+			"name": "PUT product",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"SMakuje jak skarpetki z dżebe\",\n\t\"price\": {\n\t\t\"currency\": \"PLN\",\n\t\t\"amount\": \"23\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3009/product/{{productId}}",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3009",
+					"path": [
+						"product",
+						"{{productId}}"
+					]
+				},
+				"description": "Updates product by id\n\nhttp://127.0.0.1:3009/product/:productId"
+			},
+			"response": []
+		}
+	]
+}

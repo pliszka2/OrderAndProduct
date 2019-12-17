@@ -17,7 +17,6 @@ export class UpdateProductCommandHandler {
   ) {}
 
   public async execute(data: UpdateProductDTO) {
-    console.log(data)
     const product = await this.productRepository.get(data.productId)
 
     if (!product) {
