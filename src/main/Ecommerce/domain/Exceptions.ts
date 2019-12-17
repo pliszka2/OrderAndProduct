@@ -26,9 +26,15 @@ export namespace Exceptions {
     }
   }
 
-  export class ItemNotInStock extends DomainException {
+  export class ProductNotInStock extends DomainException {
     constructor() {
-      super(ErrorDefinitions.ItemNotInStock)
+      super(ErrorDefinitions.ProductNotInStock)
+    }
+  }
+
+  export class ProductAvailabilityExceeded extends DomainException {
+    constructor() {
+      super(ErrorDefinitions.ProductAvailabilityExceeded)
     }
   }
 }

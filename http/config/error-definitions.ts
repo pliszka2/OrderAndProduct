@@ -17,8 +17,12 @@ export const ErrorDefinitions = {
     statusCode: HTTP.BAD_REQUEST,
     message: 'Item not found in the cart',
   },
-  ItemNotInStock: {
+  ProductNotInStock: {
     statusCode: HTTP.BAD_REQUEST,
     message: 'Item not in stock',
+  },
+  ProductAvailabilityExceeded: {
+    statusCode: HTTP.BAD_REQUEST,
+    message: 'Product availability exceeded',
   },
 }

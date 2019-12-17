@@ -20,7 +20,7 @@ export const sampleListOfProducts = [
       amount: 111,
     },
     inStock: true,
-    quantity: 1,
+    quantity: 10,
   }),
   new Product({
     id: '603883ec-b1a9-4eb1-818a-5f8b5d59f34b',

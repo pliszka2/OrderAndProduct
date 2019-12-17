@@ -53,4 +53,8 @@ export class Product extends Entity {
   public isInStock() {
     return this.inStock
   }
+
+  get availability() {
+    return this.quantity
+  }
 }

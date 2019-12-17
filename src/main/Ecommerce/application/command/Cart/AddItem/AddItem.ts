@@ -31,8 +31,13 @@ export class AddItemToCartCommandHandler {
     }
 
     if (!product.isInStock()) {
-      throw new Exceptions.ItemNotInStock()
+      throw new Exceptions.ProductNotInStock()
     }
+
+    if (product.availability < data.amount) {
+      throw new Exceptions.ProductAvailabilityExceeded()
+    }
+
 
     cart.addItem({
       productId: product.id,
