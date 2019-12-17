@@ -1,6 +1,6 @@
-import { CreateCartCommandHandler } from './command/CreateCart/CreateCart'
-import { AddItemToCartCommandHandler } from './command/AddItemToCart/AddItem'
-import { RemoveItemFromCartCommandHandler } from './command/RemoveItem/RemoveItem'
+import { CreateCartCommandHandler } from './command/Cart/Create/CreateCart'
+import { AddItemToCartCommandHandler } from './command/Cart/AddItem/AddItem'
+import { RemoveItemFromCartCommandHandler } from './command/Cart/RemoveItem/RemoveItem'
 
 import { CartViewModel } from './query/Cart'
 import { ProductViewModel } from './query/Product'
