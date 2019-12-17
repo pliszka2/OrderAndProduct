@@ -5,7 +5,7 @@ import { Exceptions } from '../../../../domain/Exceptions'
 
 interface RemoveItemDTO {
   cartId: string
-  itemId: string
+  productId: string
 }
 
 export class RemoveItemFromCartCommandHandler {
@@ -21,7 +21,7 @@ export class RemoveItemFromCartCommandHandler {
       throw new Exceptions.CartNotFound()
     }
 
-    cart.removeItem(removeItemDTO.itemId)
+    cart.removeItem(removeItemDTO.productId)
 
     this.eventPublisher.publish(cart.getEvents())
 

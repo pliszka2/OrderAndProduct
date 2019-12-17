@@ -2,7 +2,7 @@ import { DomainEvent, DomainEventType } from '../../common/DomainEvent'
 
 interface ItemRemovedEventInterface {
   cartId: string
-  itemId: string
+  productId: string
 }
 
 export class ItemRemovedEvent extends DomainEvent {
@@ -13,6 +13,6 @@ export class ItemRemovedEvent extends DomainEvent {
     super(DomainEventType.ItemRemoved)
 
     this.cartId = itemAddedData.cartId
-    this.itemId = itemAddedData.itemId
+    this.itemId = itemAddedData.productId
   }
 }

@@ -1,3 +1,5 @@
+import { tail } from 'lodash'
+
 import { DomainEvent } from '../../common/DomainEvent'
 import { ExchangeRates } from '../../common/CurrencyCheckerInterface'
 import { Price } from '../../common/Price'
@@ -11,11 +13,19 @@ export interface CartRecord {
   items: CartItemValueObject[]
 }
 
-interface CartItemValueObject {
-  itemId: string
+class CartItemValueObject {
+  constructor(
+    public productId: string,
+    public price: Price,
+    public name: string,
+  ) {}
+}
+
+interface AddItemDTO {
+  productId: string
   price: Price
-  name: string
   amount: number
+  name: string
 }
 
 export class Cart extends Entity {
@@ -29,31 +39,45 @@ export class Cart extends Entity {
     this.domainEvents = []
   }
 
-  public addItem(item: CartItemValueObject) {
-    this.items = [...this.items, item]
+  public addItem(addItem: AddItemDTO) {
+    this.pushToItems(
+      addItem.amount,
+      new CartItemValueObject(addItem.productId, addItem.price, addItem.name),
+    )
 
     this.domainEvents.push(
       new ItemAddedEvent({
-        itemId: item.itemId,
+        productId: addItem.productId,
         cartId: this.id,
-        amount: item.amount,
-        price: item.price,
+        amount: addItem.amount,
+        price: addItem.price,
       }),
     )
   }
 
-  public removeItem(itemId: string) {
-    const isItemInCart = this.items.find(item => item.itemId === itemId)
+  public removeItem(productId: string) {
+    const isItemInCart = this.items.find(item => item.productId === productId)
 
     if (!isItemInCart) {
       throw new Exceptions.ItemNotInCart()
     }
 
-    this.items = [...this.items.filter(item => item.itemId !== itemId)]
+    const itemsWithSameProductId = this.items.filter(
+      item => item.productId === productId,
+    )
+
+    const itemsWithDifferentProductId = this.items.filter(
+      item => item.productId !== productId,
+    )
+
+    this.items = [
+      ...itemsWithDifferentProductId,
+      ...tail(itemsWithSameProductId),
+    ]
 
     this.domainEvents.push(
       new ItemRemovedEvent({
-        itemId,
+        productId,
         cartId: this.id,
       }),
     )
@@ -75,6 +99,12 @@ export class Cart extends Entity {
     return {
       id: this.id,
       items: this.items,
+    }
+  }
+
+  private pushToItems(amount: number, item: CartItemValueObject) {
+    for (let i = 0; i < amount; i++) {
+      this.items = [...this.items, item]
     }
   }
 }

@@ -8,7 +8,7 @@ export const handler = async (
 ) => {
   const result = await Ecommerce.AddItemToCart.execute({
     cartId: req.params.cartId,
-    itemId: req.body.itemId,
+    productId: req.body.productId,
     amount: req.body.amount,
   })
 

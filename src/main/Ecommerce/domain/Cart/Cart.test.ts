@@ -8,9 +8,9 @@ describe('Cart tests', () => {
       id: uuid.v1(),
       items: [],
     })
-    const itemId = uuid.v1()
+    const productId = uuid.v1()
     cart.addItem({
-      itemId,
+      productId,
       amount: 1,
       name: 'Fancy name',
       price: {
@@ -21,6 +21,6 @@ describe('Cart tests', () => {
 
     expect(cart.getEvents()[0]).toBeInstanceOf(ItemAddedEvent)
     expect(cart.items.length).toBe(1)
-    expect(cart.items[0].itemId).toBe(itemId)
+    expect(cart.items[0].productId).toBe(productId)
   })
 })

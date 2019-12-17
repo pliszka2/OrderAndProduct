@@ -5,7 +5,7 @@ export const schema = {
     cartId: Joi.string().required(),
   }),
   body: Joi.object({
-    itemId: Joi.string().required(),
+    productId: Joi.string().required(),
     amount: Joi.number().required(),
   }),
 }

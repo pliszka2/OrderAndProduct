@@ -5,7 +5,7 @@ import { Product } from '../../../../domain/Product/Product'
 import { Exceptions } from '../../../../domain/Exceptions'
 
 type AddItemToCartDTO = {
-  itemId: string
+  productId: string
   amount: number
   cartId: string
 }
@@ -24,21 +24,21 @@ export class AddItemToCartCommandHandler {
       throw new Exceptions.CartNotFound()
     }
 
-    const item = await this.productRepository.get(data.itemId)
+    const product = await this.productRepository.get(data.productId)
 
-    if (!item) {
+    if (!product) {
       throw new Exceptions.ItemNotFound()
     }
 
-    if (!item.isInStock()) {
+    if (!product.isInStock()) {
       throw new Exceptions.ItemNotInStock()
     }
 
     cart.addItem({
-      itemId: data.itemId,
+      productId: product.id,
       amount: data.amount,
-      price: item.price,
-      name: item.name,
+      price: product.price,
+      name: product.name,
     })
 
     this.eventPublisher.publish(cart.getEvents())

@@ -8,7 +8,7 @@ export const handler = async (
 ) => {
   await Ecommerce.RemoveItemFromCart.execute({
     cartId: req.params.cartId,
-    itemId: req.body.itemId,
+    productId: req.body.productId,
   })
 
   reply.send()
