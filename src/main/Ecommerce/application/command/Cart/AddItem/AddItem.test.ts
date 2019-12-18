@@ -1,18 +1,19 @@
+import * as uuid from 'uuid'
 import { AddItemToCartCommandHandler } from './AddItem'
-import { EventPublisher } from '../../../../common/EventPublisher'
 import { InMemoryRepository } from '../../../../infrastructure/persistence/InMemoryRepository'
 import { Cart } from '../../../../domain/Cart/Cart'
 import { Product } from '../../../../domain/Product/Product'
-import { ProductDomainEventHandler } from '../../../../domain/Product/DomainEventHandler/DomainEventHandler'
-import uuid = require('uuid')
 import { Exceptions } from '../../../../domain/Exceptions'
 import { Rate } from '../../../../common/CurrencyCheckerInterface'
+import { MockEventPublisher } from '../../../../infrastructure/communication/MockEventPublisher'
+import { ItemAddedEvent } from '../../../../domain/Events/ItemAdded'
 
+const eventPublisher = new MockEventPublisher()
 const getService = (carts: Cart[] = [], products: Product[] = []) => {
   const productRepository = new InMemoryRepository<Product>(products)
 
   return new AddItemToCartCommandHandler(
-    new EventPublisher([new ProductDomainEventHandler(productRepository)]),
+    eventPublisher,
     new InMemoryRepository<Cart>(carts),
     productRepository,
   )
@@ -185,6 +186,9 @@ describe('Add Item to Cart', () => {
 
       expect(error).toBe(undefined)
       expect(response).toBe(undefined)
+
+      expect(eventPublisher.events.length).toBe(1)
+      expect(eventPublisher.events[0]).toBeInstanceOf(ItemAddedEvent)
     })
   })
 })

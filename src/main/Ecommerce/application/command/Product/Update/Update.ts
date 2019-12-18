@@ -1,4 +1,4 @@
-import { EventPublisherInterface } from '../../../../common/EventPublisher'
+import { EventPublisherInterface } from '../../../../common/EventPublisherInterface'
 import { AbstractRepositoryInterface } from '../../../../infrastructure/persistence/InMemoryRepository'
 import { Product } from '../../../../domain/Product/Product'
 import { Exceptions } from '../../../../domain/Exceptions'

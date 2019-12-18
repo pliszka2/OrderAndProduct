@@ -1,18 +1,16 @@
-import { EventPublisher } from '../../../../common/EventPublisher'
+import * as uuid from 'uuid'
 import { InMemoryRepository } from '../../../../infrastructure/persistence/InMemoryRepository'
 import { Cart } from '../../../../domain/Cart/Cart'
-import { Product } from '../../../../domain/Product/Product'
-import { ProductDomainEventHandler } from '../../../../domain/Product/DomainEventHandler/DomainEventHandler'
-import uuid = require('uuid')
 import { Exceptions } from '../../../../domain/Exceptions'
-import { Rate } from '../../../../common/CurrencyCheckerInterface'
 import { RemoveItemFromCartCommandHandler } from './RemoveItem'
+import { Rate } from '../../../../common/CurrencyCheckerInterface'
+import { ItemRemovedEvent } from '../../../../domain/Events/ItemRemoved'
+import { MockEventPublisher } from '../../../../infrastructure/communication/MockEventPublisher'
 
-const getService = (carts: Cart[] = [], products: Product[] = []) => {
-  const productRepository = new InMemoryRepository<Product>(products)
-
+const eventPublisher = new MockEventPublisher()
+const getService = (carts: Cart[] = []) => {
   return new RemoveItemFromCartCommandHandler(
-    new EventPublisher([new ProductDomainEventHandler(productRepository)]),
+    eventPublisher,
     new InMemoryRepository<Cart>(carts),
   )
 }
@@ -68,26 +66,25 @@ describe('Remove item from Cart', () => {
     })
   })
 
-  xdescribe('Happy path', () => {
+  describe('Happy path', () => {
     it('Should emit ItemAddedEvent', async () => {
       const cartId = uuid.v1()
+      const productId = uuid.v1()
       const existingCart = new Cart({
         id: cartId,
-        items: [],
-      })
-      const productId = uuid.v1()
-      const product = new Product({
-        id: productId,
-        name: 'random',
-        price: {
-          currency: Rate.EUR,
-          amount: 11,
-        },
-        inStock: true,
-        quantity: 10,
+        items: [
+          {
+            productId,
+            price: {
+              amount: 1,
+              currency: Rate.BGN,
+            },
+            name: 'fancy fancy',
+          },
+        ],
       })
 
-      const service = getService([existingCart], [product])
+      const service = getService([existingCart])
 
       let error
       let response
@@ -103,6 +100,9 @@ describe('Remove item from Cart', () => {
 
       expect(error).toBe(undefined)
       expect(response).toBe(undefined)
+
+      expect(eventPublisher.events.length).toBe(1)
+      expect(eventPublisher.events[0]).toBeInstanceOf(ItemRemovedEvent)
     })
   })
 })

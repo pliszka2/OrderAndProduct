@@ -1,9 +1,6 @@
-import { DomainEvent } from './DomainEvent'
-import { Observer } from './ObserverInterface'
-
-export interface EventPublisherInterface {
-  publish(events: DomainEvent[]): void
-}
+import { DomainEvent } from '../../common/DomainEvent'
+import { Observer } from '../../common/ObserverInterface'
+import { EventPublisherInterface } from '../../common/EventPublisherInterface'
 
 export class EventPublisher implements EventPublisherInterface {
   constructor(private observers: Observer[]) {}

@@ -5,7 +5,7 @@ import {
   AbstractRepositoryInterface,
 } from '../../../../infrastructure/persistence/InMemoryRepository'
 import { Product } from '../../../../domain/Product/Product'
-import { EventPublisher } from '../../../../common/EventPublisher'
+import { EventPublisher } from '../../../../infrastructure/communication/EventPublisher'
 import { Rate } from '../../../../common/CurrencyCheckerInterface'
 import { Exceptions } from '../../../../domain/Exceptions'
 
@@ -27,8 +27,8 @@ describe('Update product test', () => {
           name: 'new name',
           price: {
             currency: Rate.EUR,
-            amount: 1
-          }
+            amount: 1,
+          },
         })
       } catch (err) {
         error = err
@@ -48,9 +48,9 @@ describe('Update product test', () => {
         name: 'new name',
         price: {
           currency: Rate.EUR,
-          amount: 1
+          amount: 1,
         },
-        inStock: true
+        inStock: true,
       })
       const repository = new InMemoryRepository<Product>([product])
       const service = getService(repository)
@@ -64,8 +64,8 @@ describe('Update product test', () => {
           name: 'new name',
           price: {
             currency: Rate.EUR,
-            amount: 1
-          }
+            amount: 1,
+          },
         })
       } catch (err) {
         error = err
