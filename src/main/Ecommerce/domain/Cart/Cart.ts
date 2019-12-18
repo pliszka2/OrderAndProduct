@@ -86,8 +86,7 @@ export class Cart extends Entity {
 
   public calculateTotal(rates: ExchangeRates) {
     const amountInBase = this.items.reduce((acc, curr) => {
-      return (acc =
-        acc + curr.price.amount * this.findExchangeRate(curr, rates))
+      return (acc = acc + curr.price.inBaseCurrency(rates))
     }, 0)
 
     this.total = {
@@ -108,12 +107,5 @@ export class Cart extends Entity {
     for (let i = 0; i < amount; i++) {
       this.items = [...this.items, item]
     }
-  }
-
-  private findExchangeRate(
-    item: CartItemValueObject,
-    exchangeRates: ExchangeRates,
-  ) {
-    return exchangeRates.rates[item.price.currency]
   }
 }

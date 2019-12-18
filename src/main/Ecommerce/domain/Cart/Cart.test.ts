@@ -2,6 +2,7 @@ import * as uuid from 'uuid'
 import { Cart } from './Cart'
 import { ItemAddedEvent } from '../Events/ItemAdded'
 import { Rate } from '../../common/CurrencyCheckerInterface'
+import { Price } from '../../common/Price'
 
 describe('Cart tests', () => {
   it('Should add an item', () => {
@@ -14,10 +15,7 @@ describe('Cart tests', () => {
       productId,
       amount: 1,
       name: 'Fancy name',
-      price: {
-        amount: 1,
-        currency: Rate.EUR,
-      },
+      price: new Price(1, Rate.EUR),
     })
 
     expect(cart.items.length).toBe(1)
@@ -34,10 +32,7 @@ describe('Cart tests', () => {
       productId,
       amount: 1,
       name: 'Fancy name',
-      price: {
-        amount: 1,
-        currency: Rate.EUR,
-      },
+      price: new Price(1, Rate.EUR),
     })
 
     expect(cart.getEvents()[0]).toBeInstanceOf(ItemAddedEvent)

@@ -6,6 +6,7 @@ import { RemoveItemFromCartCommandHandler } from './RemoveItem'
 import { Rate } from '../../../../common/CurrencyCheckerInterface'
 import { ItemRemovedEvent } from '../../../../domain/Events/ItemRemoved'
 import { MockEventPublisher } from '../../../../infrastructure/communication/MockEventPublisher'
+import { Price } from '../../../../common/Price'
 
 const eventPublisher = new MockEventPublisher()
 const getService = (carts: Cart[] = []) => {
@@ -59,10 +60,7 @@ describe('Remove item from Cart', () => {
         items: [
           {
             productId,
-            price: {
-              amount: 1,
-              currency: Rate.BGN,
-            },
+            price: new Price(1, Rate.BGN),
             name: 'fancy fancy',
           },
         ],

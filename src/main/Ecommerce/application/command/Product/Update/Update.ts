@@ -2,7 +2,7 @@ import { EventPublisherInterface } from '../../../../common/EventPublisherInterf
 import { AbstractRepositoryInterface } from '../../../../common/AbstractRepositoryInterface'
 import { Product } from '../../../../domain/Product/Product'
 import { Exceptions } from '../../../../domain/Exceptions'
-import { Price } from 'src/main/Ecommerce/common/Price'
+import { Price } from '../../../../common/Price'
 
 export type UpdateProductDTO = {
   productId: string

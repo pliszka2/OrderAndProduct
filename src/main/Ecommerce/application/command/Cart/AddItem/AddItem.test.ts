@@ -7,6 +7,7 @@ import { Exceptions } from '../../../../domain/Exceptions'
 import { Rate } from '../../../../common/CurrencyCheckerInterface'
 import { MockEventPublisher } from '../../../../infrastructure/communication/MockEventPublisher'
 import { ItemAddedEvent } from '../../../../domain/Events/ItemAdded'
+import { Price } from '../../../../common/Price'
 
 const eventPublisher = new MockEventPublisher()
 const getService = (carts: Cart[] = [], products: Product[] = []) => {
@@ -67,10 +68,7 @@ describe('Add Item to Cart', () => {
       const product = new Product({
         id: productId,
         name: 'random',
-        price: {
-          currency: Rate.EUR,
-          amount: 11,
-        },
+        price: new Price(11, Rate.EUR),
         inStock: false,
         quantity: 0,
       })
@@ -97,10 +95,7 @@ describe('Add Item to Cart', () => {
       const product = new Product({
         id: productId,
         name: 'random',
-        price: {
-          currency: Rate.EUR,
-          amount: 11,
-        },
+        price: new Price(1, Rate.EUR),
         inStock: true,
         quantity: 1,
       })
@@ -112,9 +107,8 @@ describe('Add Item to Cart', () => {
           cartId,
           productId,
           amount: 2,
-        })
+        }),
       ).rejects.toBeInstanceOf(Exceptions.ProductAvailabilityExceeded)
-
     })
   })
 
@@ -129,10 +123,7 @@ describe('Add Item to Cart', () => {
       const product = new Product({
         id: productId,
         name: 'random',
-        price: {
-          currency: Rate.EUR,
-          amount: 11,
-        },
+        price: new Price(11, Rate.EUR),
         inStock: true,
         quantity: 10,
       })

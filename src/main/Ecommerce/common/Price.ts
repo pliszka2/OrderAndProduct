@@ -1,6 +1,9 @@
-import { Rate } from './CurrencyCheckerInterface'
+import { ExchangeRates, Rate } from './CurrencyCheckerInterface'
 
-export type Price = {
-  amount: number
-  currency: Rate
+export class Price {
+  constructor(public amount: number, public currency: Rate) {}
+
+  public inBaseCurrency(exchangeRates: ExchangeRates) {
+    return this.amount / exchangeRates.rates[this.currency]
+  }
 }
