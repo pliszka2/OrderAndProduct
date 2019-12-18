@@ -1,4 +1,4 @@
-import { AbstractRepositoryInterface } from '../../infrastructure/persistence/InMemoryRepository'
+import { AbstractRepositoryInterface } from '../../common/AbstractRepositoryInterface'
 import { Cart } from '../../domain/Cart/Cart'
 import { Exceptions } from '../../domain/Exceptions'
 import { ExchangeRatesCheckerInterface } from '../../common/CurrencyCheckerInterface'

@@ -1,5 +1,5 @@
 import { EventPublisherInterface } from '../../../../common/EventPublisherInterface'
-import { AbstractRepositoryInterface } from '../../../../infrastructure/persistence/InMemoryRepository'
+import { AbstractRepositoryInterface } from '../../../../common/AbstractRepositoryInterface'
 import { Product } from '../../../../domain/Product/Product'
 import { Exceptions } from '../../../../domain/Exceptions'
 import { Price } from 'src/main/Ecommerce/common/Price'

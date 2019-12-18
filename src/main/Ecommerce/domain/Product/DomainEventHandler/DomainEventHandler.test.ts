@@ -1,13 +1,13 @@
 import * as uuid from 'uuid'
 import { ProductDomainEventHandler } from './DomainEventHandler'
 import {
-  AbstractRepositoryInterface,
   InMemoryRepository,
 } from '../../../infrastructure/persistence/InMemoryRepository'
 import { Product } from '../Product'
 import { ItemAddedEvent } from '../../Events/ItemAdded'
 import { Rate } from '../../../common/CurrencyCheckerInterface'
 import { ItemRemovedEvent } from '../../Events/ItemRemoved'
+import { AbstractRepositoryInterface } from '../../../common/AbstractRepositoryInterface'
 
 const getHandler = (productRepsitory: AbstractRepositoryInterface<Product>) =>
   new ProductDomainEventHandler(productRepsitory)

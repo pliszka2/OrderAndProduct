@@ -2,12 +2,12 @@ import * as uuid from 'uuid'
 import { UpdateProductCommandHandler } from './Update'
 import {
   InMemoryRepository,
-  AbstractRepositoryInterface,
 } from '../../../../infrastructure/persistence/InMemoryRepository'
 import { Product } from '../../../../domain/Product/Product'
 import { EventPublisher } from '../../../../infrastructure/communication/EventPublisher'
 import { Rate } from '../../../../common/CurrencyCheckerInterface'
 import { Exceptions } from '../../../../domain/Exceptions'
+import { AbstractRepositoryInterface } from '../../../../common/AbstractRepositoryInterface'
 
 const getService = (repository: AbstractRepositoryInterface<Product>) =>
   new UpdateProductCommandHandler(new EventPublisher([]), repository)

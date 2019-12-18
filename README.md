@@ -64,6 +64,7 @@ src
         │       ├── Cart.ts
         │       └── Product.ts
         ├── common
+        │   ├── AbstractRepositoryInterface.ts
         │   ├── CurrencyCheckerInterface.ts
         │   ├── DomainEvent.ts
         │   ├── DomainException.ts

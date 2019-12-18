@@ -4,7 +4,7 @@ import { Product } from '../Product'
 import { ItemAddedEvent } from '../../Events/ItemAdded'
 import { Exceptions } from '../../Exceptions'
 import { ItemRemovedEvent } from '../../Events/ItemRemoved'
-import { AbstractRepositoryInterface } from '../../../infrastructure/persistence/InMemoryRepository'
+import { AbstractRepositoryInterface } from '../../../common/AbstractRepositoryInterface'
 
 export class ProductDomainEventHandler implements Observer {
   constructor(

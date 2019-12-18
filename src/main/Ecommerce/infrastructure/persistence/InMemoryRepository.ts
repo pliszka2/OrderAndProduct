@@ -1,12 +1,5 @@
 import { Entity } from '../../common/Entity'
 
-export interface AbstractRepositoryInterface<T> {
-  save(record: T): Promise<void>
-  get(recordId: string): Promise<T | undefined>
-  delete(record: T): Promise<void>
-  getAll(): Promise<Array<T>>
-}
-
 export class InMemoryRepository<T extends Entity> {
   constructor(private items: T[] = []) {}
 

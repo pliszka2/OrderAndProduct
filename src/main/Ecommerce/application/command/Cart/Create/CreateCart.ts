@@ -1,6 +1,6 @@
 import * as uuid from 'uuid'
-import { AbstractRepositoryInterface } from '../../../../infrastructure/persistence/InMemoryRepository'
 import { Cart } from '../../../../domain/Cart/Cart'
+import { AbstractRepositoryInterface } from '../../../../common/AbstractRepositoryInterface'
 
 export class CreateCartCommandHandler {
   constructor(private cartRepository: AbstractRepositoryInterface<Cart>) {}

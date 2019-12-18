@@ -1,4 +1,4 @@
-import { AbstractRepositoryInterface } from '../../infrastructure/persistence/InMemoryRepository'
+import { AbstractRepositoryInterface } from '../../common/AbstractRepositoryInterface'
 import { Product } from '../../domain/Product/Product'
 
 export class ProductViewModel {
