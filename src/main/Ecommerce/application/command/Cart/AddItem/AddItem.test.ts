@@ -50,9 +50,7 @@ describe('Add Item to Cart', () => {
         id: cartId,
         items: [],
       })
-
       const service = getService([existingCart])
-
       const productId = uuid.v1()
 
       let error
