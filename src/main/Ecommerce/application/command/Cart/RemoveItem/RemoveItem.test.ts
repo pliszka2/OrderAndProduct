@@ -22,20 +22,12 @@ describe('Remove item from Cart', () => {
       const cartId = uuid.v1()
       const productId = uuid.v1()
 
-      let error
-      let response
-
-      try {
-        response = await service.execute({
+      expect(
+        service.execute({
           cartId,
           productId,
-        })
-      } catch (err) {
-        error = err
-      }
-
-      expect(error).toBeInstanceOf(Exceptions.CartNotFound)
-      expect(response).toBe(undefined)
+        }),
+      ).rejects.toBeInstanceOf(Exceptions.CartNotFound)
     })
   })
 
@@ -49,20 +41,12 @@ describe('Remove item from Cart', () => {
       const service = getService([existingCart])
       const productId = uuid.v1()
 
-      let error
-      let response
-
-      try {
-        response = await service.execute({
+      expect(
+        service.execute({
           cartId,
           productId,
-        })
-      } catch (err) {
-        error = err
-      }
-
-      expect(error).toBeInstanceOf(Exceptions.ItemNotInCart)
-      expect(response).toBe(undefined)
+        }),
+      ).rejects.toBeInstanceOf(Exceptions.ItemNotInCart)
     })
   })
 
@@ -86,20 +70,10 @@ describe('Remove item from Cart', () => {
 
       const service = getService([existingCart])
 
-      let error
-      let response
-
-      try {
-        response = await service.execute({
-          cartId,
-          productId,
-        })
-      } catch (err) {
-        error = err
-      }
-
-      expect(error).toBe(undefined)
-      expect(response).toBe(undefined)
+      await service.execute({
+        cartId,
+        productId,
+      })
 
       expect(eventPublisher.events.length).toBe(1)
       expect(eventPublisher.events[0]).toBeInstanceOf(ItemRemovedEvent)

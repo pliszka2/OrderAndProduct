@@ -26,21 +26,13 @@ describe('Add Item to Cart', () => {
       const cartId = uuid.v1()
       const productId = uuid.v1()
 
-      let error
-      let response
-
-      try {
-        response = await service.execute({
+      expect(
+        service.execute({
           cartId,
           productId,
           amount: 1,
-        })
-      } catch (err) {
-        error = err
-      }
-
-      expect(error).toBeInstanceOf(Exceptions.CartNotFound)
-      expect(response).toBe(undefined)
+        }),
+      ).rejects.toBeInstanceOf(Exceptions.CartNotFound)
     })
   })
 
@@ -54,21 +46,13 @@ describe('Add Item to Cart', () => {
       const service = getService([existingCart])
       const productId = uuid.v1()
 
-      let error
-      let response
-
-      try {
-        response = await service.execute({
+      expect(
+        service.execute({
           cartId,
           productId,
           amount: 1,
-        })
-      } catch (err) {
-        error = err
-      }
-
-      expect(error).toBeInstanceOf(Exceptions.ProductNotFound)
-      expect(response).toBe(undefined)
+        }),
+      ).rejects.toBeInstanceOf(Exceptions.ProductNotFound)
     })
   })
 
@@ -90,24 +74,15 @@ describe('Add Item to Cart', () => {
         inStock: false,
         quantity: 0,
       })
-
       const service = getService([existingCart], [product])
 
-      let error
-      let response
-
-      try {
-        response = await service.execute({
+      expect(
+        service.execute({
           cartId,
           productId,
           amount: 1,
-        })
-      } catch (err) {
-        error = err
-      }
-
-      expect(error).toBeInstanceOf(Exceptions.ProductNotInStock)
-      expect(response).toBe(undefined)
+        }),
+      ).rejects.toBeInstanceOf(Exceptions.ProductNotInStock)
     })
   })
 
@@ -132,21 +107,14 @@ describe('Add Item to Cart', () => {
 
       const service = getService([existingCart], [product])
 
-      let error
-      let response
-
-      try {
-        response = await service.execute({
+      expect(
+        service.execute({
           cartId,
           productId,
           amount: 2,
         })
-      } catch (err) {
-        error = err
-      }
+      ).rejects.toBeInstanceOf(Exceptions.ProductAvailabilityExceeded)
 
-      expect(error).toBeInstanceOf(Exceptions.ProductAvailabilityExceeded)
-      expect(response).toBe(undefined)
     })
   })
 
@@ -171,21 +139,11 @@ describe('Add Item to Cart', () => {
 
       const service = getService([existingCart], [product])
 
-      let error
-      let response
-
-      try {
-        response = await service.execute({
-          cartId,
-          productId,
-          amount: 2,
-        })
-      } catch (err) {
-        error = err
-      }
-
-      expect(error).toBe(undefined)
-      expect(response).toBe(undefined)
+      await service.execute({
+        cartId,
+        productId,
+        amount: 2,
+      })
 
       expect(eventPublisher.events.length).toBe(1)
       expect(eventPublisher.events[0]).toBeInstanceOf(ItemAddedEvent)

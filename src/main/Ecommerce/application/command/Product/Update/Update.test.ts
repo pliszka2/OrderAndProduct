@@ -18,24 +18,17 @@ describe('Update product test', () => {
       const repository = new InMemoryRepository<Product>()
       const service = getService(repository)
       const productId = uuid.v1()
-      let error
-      let response
 
-      try {
-        response = await service.execute({
+      expect(
+        service.execute({
           productId,
           name: 'new name',
           price: {
             currency: Rate.EUR,
             amount: 1,
           },
-        })
-      } catch (err) {
-        error = err
-      }
-
-      expect(error).toBeInstanceOf(Exceptions.ProductNotFound)
-      expect(response).toBe(undefined)
+        }),
+      ).rejects.toBeInstanceOf(Exceptions.ProductNotFound)
     })
   })
 
@@ -55,24 +48,14 @@ describe('Update product test', () => {
       const repository = new InMemoryRepository<Product>([product])
       const service = getService(repository)
 
-      let error
-      let response
-
-      try {
-        response = await service.execute({
-          productId,
-          name: 'new name',
-          price: {
-            currency: Rate.EUR,
-            amount: 1,
-          },
-        })
-      } catch (err) {
-        error = err
-      }
-
-      expect(error).toBe(undefined)
-      expect(response).toBe(undefined)
+      expect(service.execute({
+        productId,
+        name: 'new name',
+        price: {
+          currency: Rate.EUR,
+          amount: 1,
+        },
+      })).resolves.toBe(undefined)
     })
   })
 })
