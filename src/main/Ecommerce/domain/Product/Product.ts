@@ -47,7 +47,7 @@ export class Product extends Entity {
 
   public update(updateData: UpdateProduct) {
     this.name = updateData.name
-    this.price = updateData.price
+    this.price = new Price(updateData.price.amount, updateData.price.currency)
   }
 
   public isInStock() {
