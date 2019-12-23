@@ -47,13 +47,13 @@ export class Cart extends Entity {
       new CartItemValueObject(addItem.productId, addItem.price, addItem.name),
     )
 
-    this.domainEvents.push(
-      new ItemAddedEvent({
-        productId: addItem.productId,
-        cartId: this.id,
-        price: addItem.price,
-      }),
-    )
+    const event = new ItemAddedEvent({
+      productId: addItem.productId,
+      cartId: this.id,
+      price: addItem.price,
+      amount: addItem.amount,
+    })
+    this.domainEvents.push(event)
   }
 
   public removeItem(productId: string) {

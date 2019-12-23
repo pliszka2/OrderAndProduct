@@ -29,7 +29,7 @@ export class ProductDomainEventHandler implements Observer {
       throw new Exceptions.ProductNotFound()
     }
 
-    product.decreaseQuantity()
+    product.decreaseQuantity(event.amount)
 
     return this.productRepository.save(product)
   }

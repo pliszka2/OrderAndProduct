@@ -29,8 +29,8 @@ export class Product extends Entity {
     this.quantity = productRecord.quantity
   }
 
-  public decreaseQuantity() {
-    this.quantity = Number(this.quantity) - 1
+  public decreaseQuantity(amount: number) {
+    this.quantity = Number(this.quantity) - Number(amount)
 
     if (this.quantity === 0) {
       this.inStock = false
